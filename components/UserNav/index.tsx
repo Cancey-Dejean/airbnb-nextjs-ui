@@ -15,10 +15,16 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { createAirbnbHome } from "@/app/actions";
 
 export default async function UserNav() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
+  const createHomeWithId = createAirbnbHome.bind(null, {
+    userId: user?.id as string,
+  });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -27,6 +33,7 @@ export default async function UserNav() {
 
           <Image
             src={
+              user?.picture ||
               "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
             }
             alt="Image of the user"
@@ -40,13 +47,13 @@ export default async function UserNav() {
       <DropdownMenuContent align="end" className="w-[200px]">
         {user ? (
           <>
-            {/* <DropdownMenuItem>
-              <form action={createHomewithId} className="w-full">
+            <DropdownMenuItem>
+              <form className="w-full" action={createHomeWithId}>
                 <button type="submit" className="w-full text-start">
                   Airbnb your Home
                 </button>
               </form>
-            </DropdownMenuItem> */}
+            </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href="/my-homes" className="w-full">
                 My Listings

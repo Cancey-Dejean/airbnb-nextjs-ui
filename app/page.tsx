@@ -1,11 +1,11 @@
+import { MapFilterItems } from "@/components/MapFilterItems";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <>
-      <h1>Hello</h1>
-      <Button variant="default">Click me</Button>
-    </>
+    <div className="container mx-auto px-5 lg:px-10">
+      <MapFilterItems />
+    </div>
   );
 }
