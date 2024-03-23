@@ -1,4 +1,5 @@
 "use client";
+import { createLocation } from "@/app/actions";
 import CreationBottomBar from "@/components/CreationBottomBar";
 import {
   Select,
@@ -14,7 +15,7 @@ import { useCountries } from "@/lib/getCountries";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
-export default function AddressRoute() {
+export default function AddressRoute({ params }: { params: { id: string } }) {
   const { getAllCountries } = useCountries();
   const [locationValue, setLocationValue] = useState("");
 
@@ -30,9 +31,9 @@ export default function AddressRoute() {
         </h2>
       </div>
 
-      <form>
-        <input type="hidden" name="homeId" value="" />
-        <input type="hidden" name="countryValue" value="" />
+      <form action={createLocation}>
+        <input type="hidden" name="homeId" value={params.id} />
+        <input type="hidden" name="countryValue" value={locationValue} />
         <div className="w-3/5 mx-auto mb-36">
           <div className="mb-5">
             <Select required onValueChange={(value) => setLocationValue(value)}>
